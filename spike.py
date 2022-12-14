@@ -1,7 +1,4 @@
-from enum import Enum
-
-
-class Sound(Enum):
+class Sound:
     Alert = "Alert"
     Applause_1 = "Applause 1"
     Applause_2 = "Applause 2"
@@ -259,7 +256,7 @@ class Image(Enum):
     YES = "YES"
 
 
-class Color(Enum):
+class Color:
     AZURE = "azure"
     BLACK = "black"
     BLUE = "blue"
@@ -273,7 +270,7 @@ class Color(Enum):
     WHITE = "white"
 
 
-class Port(Enum):
+class Port:
     A = 'A'
     B = 'B'
     C = 'C'
@@ -282,7 +279,7 @@ class Port(Enum):
     F = 'F'
 
 
-class Color(Enum):
+class Color:
     BLACK = "black",
     VIOLET = "violet"
     BLUE = "blue"
@@ -294,7 +291,7 @@ class Color(Enum):
     NONE = None
 
 
-class Gesture(Enum):
+class Gesture:
     SHAKEN = "shaken"
     TAPPED = "tapped"
     DOUBLE_TAPPED = "double-tapped"
@@ -302,13 +299,13 @@ class Gesture(Enum):
     NONE = "none"
 
 
-class StopAction(Enum):
+class StopAction:
     BRAKE = "brake"
     HOLD = "hold"
     COAST = "coast"
 
 
-class Orientation(Enum):
+class Orientation:
     FRONT = "front"
     BACK = "back"
     UP = "up"
@@ -317,7 +314,7 @@ class Orientation(Enum):
     RIGHTSIDE = "rightside"
 
 
-class DistanceUnit(Enum):
+class DistanceUnit:
     CM = "cm"
     INCH = "in"
 
@@ -367,8 +364,8 @@ class App:
 
 
 class Button:
-    f"""
-    Defines a button on the PrimeHub
+    """
+    Represents a button on the SpikeHub.
     """
 
     def wait_until_pressed(self):
@@ -435,163 +432,407 @@ class Component:
 
 class ColorSensor(Component):
     """
-
-
+    Represents a Push-Button Sensor connected the spike hub.
     """
     def get_color(self) -> Color:
+        """
+        Retrieves the detected color of a surface.
+        Returns:
+        Name of Color
+        """
         pass
 
     def get_ambient_light(self) -> int:
+        """
+        Retrieves the intensity of the ambient light.
+        This causes the Color Sensor to change modes, which can affect your program in unexpected ways.
+        For example, the Color Sensor can't read colors when it's in ambient light mode.
+        Returns:
+        The ambient light intensity. (0-100)
+        """
         pass
+
 
     def get_reflected_light(self) -> int:
+        """
+        Retrieves the intensity of the reflected light.
+        Returns:
+        The reflected light intensity. (0-100)
+        """
         pass
+
 
     def get_rgb_intensity(self) -> tuple:
+        """
+        Retrieves the overall color intensity, and intensity of red, green, and blue.
+        Returns:
+        Tumple of values [Red,Green,Blue] with a range of (0-1024)
+        """
         pass
+
 
     def get_red(self) -> int:
+        """
+        Retrieves the color intensity of red.
+        Returns:
+        The color intensity of red. (0-1024)
+        """
         pass
+
 
     def get_green(self) -> int:
+        """
+        Retrieves the color intensity of green.
+        Returns:
+        The color intensity of green. (0-1024)
+        """
         pass
+
 
     def get_blue(self) -> int:
+        """
+        Retrieves the color intensity of blue.
+        Returns:
+        The color intensity of blue. (0-1024)
+        """
         pass
+
 
     def wait_until_color(self, color: Color):
+        """
+        Waits until the Color Sensor detects the specified color.
+        Parameters:
+        color: The color to wait for.
+        """
         pass
+
 
     def wait_for_new_color(self) -> Color:
+        """
+        Waits until the Color Sensor detects a new color.
+        The first time this method is called, it immediately returns the detected color.
+        After that, it waits until the Color Sensor detects a color that’s different from the color that was detected the last time this method was used.
+        Returns:
+        The new color.
+        """
         pass
+
 
     def light_up_all(self, brightness=100) -> int:
+        """
+        Lights up all of the lights on the Color Sensor at the specified brightness.
+        This causes the Color Sensor to change modes, which can affect your program in unexpected ways.
+        For example, the Color Sensor can't read colors when it's in light up mode.
+        Parameters:
+        brightness: The desired brightness of the lights on the Color Sensor.
+        """
         pass
 
+
     def light_up(self, light_1: int = 100, light_2: int = 100, light_3: int = 100):
+        """
+        Sets the brightness of the individual lights on the Color Sensor.
+        This causes the Color Sensor to change modes, which can affect your program in unexpected ways.
+        For example, the Color Sensor can't read colors when it's in light up mode.
+        Parameters:
+        light_1: The desired brightness of light 1.
+        light_2: The desired brightness of light 2.
+        light_3: The desired brightness of light 3.
+        """
         pass
+
 
 
 class DistanceSensor(Component):
+    """
+    Represents a Distance Sensor connected the spike hub.
+    """
     def light_up_all(self, brightness: int = 100):
+        """
+        Lights up all of the lights on the Distance Sensor at the specified brightness.
+        Parameters:
+        brightness: The specified brightness of all of the lights.
+        """
         pass
 
     def light_up(self, right_top: int = 100, left_top: int = 100, right_bottom: int = 100, left_bottom: int = 100):
+        """
+        Sets the brightness of the individual lights on the Distance Sensor.
+        Parameters:
+            right_top: The brightness of the light that’s above the right part of the Distance Sensor. (0-100)
+            left_top: The brightness of the light that’s above the left part of the Distance Sensor. (0-100)
+            right_bottom: The brightness of the light that’s below the right part of the Distance Sensor. (0-100)
+            left_bottom: The brightness of the light that’s below the left part of the Distance Sensor. (0-100)
+        """
         pass
 
     def get_distance_cm(self, short_range: bool = False) -> float:
+        """
+        Retrieves the measured distance in centimeters.
+        Parameters:
+            short_range: Whether or not to use short range mode. Short range mode increases accuracy, but it can only detect nearby objects.
+        Returns:
+            The measured distance or "none" if the distance can't be measured. (0-200)cm
+        """
         pass
 
     def get_distance_inches(self, short_range: bool = False) -> float:
+        """
+        Retrieves the measured distance in inches.
+        Parameters:
+            short_range: Whether or not to use short range mode. Short range mode increases accuracy, but it can only detect nearby objects.
+        Returns:
+        The measured distance or "none" if the distance can't be measured. (0-79) inch
+        """
         pass
 
     def get_distance_percentage(self, short_range: bool = False) -> int:
+        """
+        Retrieves the measured distance as a percentage.
+        Parameters:
+            short_range: Whether or not to use short range mode. Short range mode increases accuracy, but it can only detect nearby objects.
+        Returns:
+            The measured distance or "none" if the distance can't be measured. (0-100)
+        """
         pass
 
-    def wait_for_distance_farther_than(self, distance: float, unit: AdvancedDistanceUnit = AdvancedDistanceUnit.CM,
-                                       short_range: bool = False):
+    def wait_for_distance_farther_than(self, distance: float, unit: AdvancedDistanceUnit = AdvancedDistanceUnit.CM, short_range: bool = False):
+        """
+        Waits until the measured distance is greater than the specified distance.
+        Parameters:
+            distance: The target distance to be detected from the sensor to an object.
+            unit: The unit in which the distance is measured.
+            short_range: Whether or not to use short range mode. Short range mode increases accuracy, but it can only detect nearby objects.
+        """
         pass
 
-    def wait_for_distance_closer_than(self, distance: float, unit: AdvancedDistanceUnit = AdvancedDistanceUnit.CM,
-                                      short_range: bool = False):
+    def wait_for_distance_closer_than(self, distance: float, unit: AdvancedDistanceUnit = AdvancedDistanceUnit.CM, short_range: bool = False):
+        """
+        Waits until the measured distance is less than the specified distance.
+        Parameters:
+            distance: The target distance to be detected from the sensor to an object.
+            unit: The unit in which the distance is measured.
+            short_range: Whether or not to use short range mode. Short range mode increases accuracy, but it can only detect nearby objects.
+        """
         pass
 
 
 class ForceSensor(Component):
+    """
+    Represents a Push-Button Sensor connected the spike hub.
+    """
     def is_pressed(self) -> bool:
+        """
+        Tests whether the button on the sensor is pressed.
+        Returns:
+        True if the button is pressed.
+        """
         pass
 
     def get_force_newton(self) -> float:
+        """
+        Retrieves the measured force, in newtons.
+        Returns:
+            The measured force, specified in newtons. (0-10)
+        """
         pass
 
     def get_force_percentage(self) -> int:
+        """
+        Retrieves the measured force as a percentage of the maximum force.
+        Returns:
+            The measured force, given as a percentage. (0-100)
+        """
         pass
 
     def wait_until_pressed(self):
+        """
+        Waits until the Force Sensor is pressed.
+        """
         pass
 
     def wait_until_released(self):
+        """
+        Waits until the Force Sensor is released.
+        """
         pass
 
 
 class LightMatrix:
+    """
+    Represents the light matrix on the spike hub.
+    """
     def show_image(self, image: Image, brightness: int = 100):
+        """
+        Shows an image on the Light Matrix.
+        Parameters:
+            image: Image to be displayed.
+            brightness: Brightness of the image. (0-100)
+        """
         pass
 
     def set_pixel(self, x: int, y: int, brightness: int = 100):
+        """
+        Sets the brightness of one pixel (one of the 25 LEDs) on the Light Matrix.
+        Parameters:
+            x: Pixel position, counting from the left. (1-5)
+            y: Pixel position, counting from the top. (1-5)
+            brightness: Brightness of the pixel (0-100)
+        """
         pass
 
     def write(self, text: str):
+        """
+        Displays text on the Light Matrix, one letter at a time, scrolling from right to left.
+        Your program will not continue until all of the letters have been shown.
+        Parameters:
+            text: Text to write.
+        """
         pass
 
     def off(self):
+        """
+        Turns off all of the pixels on the Light Matrix.
+        """
         pass
 
 
 class MotionSensor:
+    """
+    Represents the gyroscope sensors in the spike hub.
+    """
     def was_gesture(self, gesture: Gesture) -> bool:
+        """
+        Tests whether a gesture has occurred since the last time was_gesture() was used, or since the beginning of the program (for the first use).
+        Parameters:
+            gesture: The gesture to check
+        """
         pass
 
     def wait_for_new_gesture(self) -> Gesture:
+        """
+        Waits until a new gesture happens.
+        Returns:
+            The new gesture.
+        """
         pass
 
     def wait_for_new_orientation(self) -> Orientation:
+        """
+        Waits until the Hub’s orientation changes.
+        The first time this method is called, it will immediately return the current value.
+        After that, calling this method will block the program until the Hub’s orientation has changed since the previous time this method was called.
+        Returns:
+            The Hub’s new orientation.
+        """
         pass
 
     def get_orientation(self) -> Orientation:
+        """
+        Retrieves the Hub's current orientation.
+        Returns:
+            The Hub’s current orientation.
+        """
         pass
 
     def get_gesture(self) -> Gesture:
+        """
+        Retrieves the most recently-detected gesture.
+        Returns:
+            The gesture.
+        """
         pass
 
     def get_roll_angle(self) -> int:
+        """
+        Retrieves the Hub’s roll angle.
+        Roll is the rotation around the front-back (longitudinal) axis.
+        Yaw is the rotation around the front-back (vertical) axis.
+        Pitch is the rotation around the left-right (transverse) axis.
+        Returns:
+            The roll angle, specified in degrees. (-180:180)
+        """
         pass
 
     def get_pitch_angle(self) -> int:
+        """
+        Retrieves the Hub’s pitch angle.
+        Pitch is the rotation around the left-right (transverse) axis.
+        Roll is the rotation around the front-back (longitudinal) axis.
+        Yaw is the rotation around the front-back (vertical) axis.
+        Returns:
+            The pitch angle, specified in degrees. (-180:180)
+        """
         pass
 
     def get_yaw_angle(self) -> int:
+        """
+        Retrieves the Hub’s yaw angle.
+        Yaw is the rotation around the front-back (vertical) axis.
+        Pitch is the rotation around the left-right (transverse) axis.
+        Roll is the rotation around the front-back (longitudinal) axis.
+        Returns:
+            The yaw angle, specified in degrees. (-180:180)
+        """
         pass
 
     def reset_yaw_angle(self):
+        """
+        Sets the yaw angle to 0.
+        """
         pass
 
 
-# TODO: FIX THIS CLASS!
 class Motor(Component):
-
-    def start(self, steering: int = 0, speed: int = None):
+    """
+    Represents a Motor connected the spike hub.
+    """
+    def __init__(self,motor:Port):
         pass
-
+    # TODO: CHANGE DIRECTION TO ENUM!
+    def run_to_position(self, degrees:int, direction='shortest path', speed: int=0):
+        pass
+    def run_to_degrees_counted(self,degrees:int,speed:int=0):
+        pass
+    def run_for_degrees(self,degrees:int,speed:int=0):
+        pass
+    def run_for_rotations(self,rotatins:int,speed:int=0):
+        pass
+    def run_for_seconds(self,seconds:int,speed:int=0):
+        pass
+    def start(self,speed:int=0):
+        pass
     def stop(self):
         pass
-
-    def move_tank(self, amount: float, unit: MotorUnit = MotorUnit.CM, left_speed: int = None, right_speed: int = None):
+    def start_at_power(self,power:int):
         pass
-
-    def start_tank(self, left_speed: int, right_speed: int):
+    def get_speed(self) -> int:
         pass
-
-    def start_at_power(self, power: int, steering: int = 0):
+    def get_position(self) -> int:
         pass
-
-    def start_tank_at_power(self, left_power: int, right_power: int):
+    def get_degrees_counted(self) -> int:
         pass
-
     def get_default_speed(self) -> int:
         pass
-
-    def set_motor_rotation(self, amount: float = 17.6, unit: MotorUnit = MotorUnit.CM):
+    def was_interrupted(self) -> bool:
+        pass
+    def was_stalled(self) -> bool:
+        pass
+    def set_degrees_counted(self,degrees_counted:int):
+        pass
+    def set_default_speed(self,default_speed:int):
+        pass
+    def set_stop_action(self,action:StopAction):
+        pass
+    def set_stall_detection(stop_when_stalled:bool):
         pass
 
-    def set_default_speed(self, speed: int = 100):
-        pass
-
-    def set_stop_action(self, action: StopAction = StopAction.COAST):
-        pass
 
 
 class MotorPair:
+    """
+    Represents a set of two motors connected to the spike hub
+    """
     def __init__(self, motor_1: Port, motor_2: Port):
         pass
 
@@ -613,6 +854,9 @@ class MotorPair:
     def start_at_power(self, power: int, steering: int = 0):
         pass
 
+    def start_tank_at_power(self,left_power:int,right_power:int):
+        pass
+
     def get_default_speed(self) -> int:
         pass
 
@@ -627,36 +871,98 @@ class MotorPair:
 
 
 class Speaker:
+    """
+    Represents the speaker built in the spike hub.
+    """
     def beep(self, note: float = 60, seconds: float = 0.2):
+        """
+        Plays a beep on the Hub.
+        Your program will not continue until seconds have passed.
+        Parameters:
+            note: The MIDI note number. (44-123)
+            seconds: The duration of the beep, specified in seconds.
+        """
         pass
-
     def start_beep(self, note: float = 60):
+        """
+        Starts playing a beep.
+        The beep will play indefinitely until stop() or another beep method is called.
+        Parameters:
+            note: The MIDI note number. (44-123)
+        """
         pass
 
     def stop(self):
+        """
+        Stops any sound that is playing.
+        """
         pass
 
     def get_volume(self) -> int:
+        """
+        Retrieves the value of the speaker volume.
+        This only retrieves the volume of the Hub, not the programming app.
+        Returns:
+            The current volume. (0-100)
+        """
         pass
 
     def set_volume(self, volume: int):
+        """
+        Sets the speaker volume.
+        If the assigned volume is out of range, the nearest volume (i.e., 0 or 100) will be used instead.
+        This only sets the volume of the Hub, not the programming app.
+        Parameters:
+            volume: The new volume percentage. (0-100)
+        """
         pass
 
 
 class StatusLight:
+    """
+    Represents the status light on the spike hub.
+    """
     def on(self, color: Color = Color.WHITE):
+        """
+        Sets the color of the light.
+        Parameters:
+            color: Illuminates the Hub’s Brick Status Light in the specified color.
+        """
         pass
 
     def off(self):
+        """
+        Turns off the light.
+        """
         pass
 
 
 class Timer:
+    """
+    An internal system to control use a timer.
+    """
     def reset(self):
+        """
+        Sets the Timer to 0.
+        """
         pass
 
     def now(self) -> int:
+        """
+        Retrieves the "right now" time of the Timer.
+        Returns:
+            The current time, specified in seconds.
+        """
         pass
+
+def wait_for_seconds(seconds: float):
+    """
+    Waits for a specified number of seconds before continuing the program.
+    Parameters:
+        seconds: The time to wait, specified in seconds.
+    """
+    pass
+
 
 
 class PrimeHub:
