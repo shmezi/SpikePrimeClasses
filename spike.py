@@ -1,4 +1,12 @@
+class Direction:
+    Shortest_path = "Shortest path" #could run in either direction, depending on the shortest distance to the target.
+    Clockwise = "Clockwise" #will make the motor run clockwise until it reaches the target position.
+    Counterclockwise = "Counterclockwise" #will make the motor run counterclockwise until it reaches the target position.
+
 class Sound:
+    """
+    Available predefined sounds provided by the spike hub.
+    """
     Alert = "Alert"
     Applause_1 = "Applause 1"
     Applause_2 = "Applause 2"
@@ -186,7 +194,10 @@ class Sound:
     Zip = "Zip"
 
 
-class Image(Enum):
+class Image:
+    """
+    Available predefined images provided by the spike hub.
+    """
     ANGRY = "ANGRY"
     ARROW_E = "ARROW_E"
     ARROW_N = "ARROW_N"
@@ -257,6 +268,9 @@ class Image(Enum):
 
 
 class Color:
+    """
+    Available colors
+    """
     AZURE = "azure"
     BLACK = "black"
     BLUE = "blue"
@@ -269,8 +283,10 @@ class Color:
     YELLOW = "yellow"
     WHITE = "white"
 
-
 class Port:
+    """
+    Represents the ports on the spike hub.
+    """
     A = 'A'
     B = 'B'
     C = 'C'
@@ -278,20 +294,10 @@ class Port:
     E = 'E'
     F = 'F'
 
-
-class Color:
-    BLACK = "black",
-    VIOLET = "violet"
-    BLUE = "blue"
-    CYAN = "cyan"
-    GREEN = "green"
-    YELLOW = "yellow"
-    RED = "red"
-    WHITE = "white"
-    NONE = None
-
-
 class Gesture:
+    """
+    Gestures returned by gyroscope.
+    """
     SHAKEN = "shaken"
     TAPPED = "tapped"
     DOUBLE_TAPPED = "double-tapped"
@@ -300,6 +306,9 @@ class Gesture:
 
 
 class StopAction:
+    """
+    The possible actions that will occur when stopping.
+    """
     BRAKE = "brake"
     HOLD = "hold"
     COAST = "coast"
@@ -787,47 +796,155 @@ class Motor(Component):
     """
     Represents a Motor connected the spike hub.
     """
-    def __init__(self,motor:Port):
+    def __init__(self, motor:Port):
         pass
-    # TODO: CHANGE DIRECTION TO ENUM!
-    def run_to_position(self, degrees:int, direction='shortest path', speed: int=0):
+    def run_to_position(self, degrees:int, direction: Direction=Direction.Shortest_path, speed: int=0):
+        """
+        Runs the motor to an absolute position.
+        The sign of the speed will be ignored (i.e., absolute value), and the motor will always travel in the direction that’s been specified by the "direction" parameter.
+        If the speed is greater than "100," it will be limited to "100."
+        Parameters:
+            degrees: The target position. (0:359)
+            direction: The direction to use to reach the target position.
+            speed: The motor’s speed.
+        """
         pass
     def run_to_degrees_counted(self,degrees:int,speed:int=0):
+        """
+        Runs the motor until the number of degrees counted is equal to the value that has been specified by the "degrees" parameter.
+        The sign of the speed will be ignored, and the motor will always travel in the direction required to reach the specified number of degrees.
+        If the speed is greater than "100," it will be limited to "100."
+        Parameters:
+            degrees: The target degrees counted.
+            speed: The desired speed. (0:100)
+        """
         pass
     def run_for_degrees(self,degrees:int,speed:int=0):
+        """
+        Runs the motor for a specified number of degrees.
+        Parameters:
+            degrees: The number of degrees that the motor should run.
+            speed: The motor’s speed. (-100:100)
+        """
         pass
     def run_for_rotations(self,rotatins:int,speed:int=0):
+        """
+        Runs the motor for a specified number of rotations.
+        Parameters:
+        rotations: The number of rotations that the motor should run.
+        speed: The motor’s speed. (-100:100)
+        """
         pass
     def run_for_seconds(self,seconds:int,speed:int=0):
+        """
+        Runs the motor for a specified number of seconds.
+        Parameters:
+            seconds: The number of seconds for which the motor should run.
+            speed: The motor’s speed. (-100:100)
+        """
         pass
     def start(self,speed:int=0):
+        """
+        Starts running the motor at a specified speed.
+        The motor will keep moving at this speed until you give it another motor command or when your program ends.
+        Parameters:
+            speed: The motor’s speed. (-100:100)
+        """
         pass
     def stop(self):
+        """
+        Stops the motor.
+        What the motor does after it stops depends on the action that’s been set in set_stop_action().
+        The default value of set_stop_action() is "coast."
+        """
         pass
     def start_at_power(self,power:int):
+        """
+        Starts rotating the motor at a specified power level.
+        The motor will keep moving at this power level until you give it another motor command or when your program ends.
+        Parameters:
+            power: Power of the motor.
+            speed: The motor’s speed. (-100:100)
+        """
         pass
     def get_speed(self) -> int:
+        """
+        Retrieves the motor speed.
+        Returns:
+            The motor's current speed. (-100:100)
+        """
         pass
     def get_position(self) -> int:
+        """
+        Retrieves the motor position.
+        This is the clockwise angle between the moving marker and the zero-point marker on the motor.
+        Returns:
+            The motor’s position. (0:359)
+        """
         pass
     def get_degrees_counted(self) -> int:
+        """
+        Retrieves the number of degrees that have been counted by the motor.
+        Returns:
+            The number of degrees that’s been counted.
+        """
         pass
     def get_default_speed(self) -> int:
+        """
+        Retrieves the current default motor speed.
+        Returns:
+            The default motor’s speed. (-100:100)
+        """
         pass
     def was_interrupted(self) -> bool:
+        """
+        Tests whether the motor was interrupted.
+        Returns:
+        True if the motor was interrupted since the last time was_interrupted() was called, otherwise false.
+        """
         pass
     def was_stalled(self) -> bool:
+        """
+        Tests whether the motor was stalled.
+        Returns:
+        True if the motor has stalled since the last time was_stalled() was called, otherwise false.
+        """
         pass
     def set_degrees_counted(self,degrees_counted:int):
+        """
+        Sets the "number of degrees counted" to the desired value.
+        Parameters:
+            degrees_counted: The value to which the number of degrees counted should be set.
+        """
         pass
     def set_default_speed(self,default_speed:int):
+        """
+        Sets the default motor speed. This speed will be used when you omit the speed argument in one of the other methods, such as run_for_degrees.
+        Setting the default speed does not affect any motors that are currently running.
+        It will only have an effect when another motor method is called after this method.
+        If the value of default_speed is outside of the allowed range, the default speed will be set to "-100" or "100" depending on whether the value is negative or positive.
+        Parameters:
+            default_speed: The default speed value. (-100:100)
+        """
         pass
     def set_stop_action(self,action:StopAction):
+        """
+        Sets the default behavior when a motor stops.
+        Parameters:
+            action: The desired motor behavior when the motor stops.
+        """
         pass
     def set_stall_detection(stop_when_stalled:bool):
+        """
+        Turns stall detection on or off.
+        Stall detection senses when a motor has been blocked and can’t move.
+        If stall detection has been enabled and a motor is blocked, the motor will be powered off after two seconds and the current motor command will be interrupted.
+        If stall detection has been disabled, the motor will keep trying to run and programs will "get stuck" until the motor is no longer blocked.
+        Stall detection is enabled by default.
+        Parameters:
+            stop_when_stalled: Choose true to enable stall detection or false to disable it.
+        """
         pass
-
-
 
 class MotorPair:
     """
@@ -837,36 +954,144 @@ class MotorPair:
         pass
 
     def move(self, amount: float, unit: MotorUnit = MotorUnit.CM, steering: int = 0, speed: int = None):
+        """
+        Start both motors simultaneously to move a Driving Base.
+        Steering = "0" makes the Driving Base go straight. Negative numbers make the Driving Base turn left. Positive numbers make the Driving Base turn right.
+        The program will not continue until the specified value is reached.
+        If the value of steering is equal to "-100" or "100," the Driving Base will perform a rotation on itself (i.e., "tank move") at the default speed of each motor.
+        If the value of steering is outside of the allowed range, the value will be set to "-100" or "100," depending on whether the value is positive or negative.
+        If speed is outside of the allowed range, the value will be set to "-100" or "100," depending on whether the value is positive or negative.
+        If the speed is negative, the Driving Base will move backward instead of forward. Likewise, if the "amount" is negative, the Driving Base will move backward instead of forward. If both the speed and the "amount" are negative, the Driving Base will move forward.
+        When the specified unit is "cm" or "in," the "amount" of the unit parameter is equal to the horizontal distance that the Driving Base will travel before stopping. The relationship between the motor rotations and distance traveled can be adjusted by calling set_motor_rotation().
+        When the "unit" is "rotations" or "degrees," the "amount" parameter value specifies how much the motor axle will turn before stopping.
+        When the "unit" is "seconds," the "amount" parameter value specifies the duration that the motors will run before stopping.
+        Parameters:
+            amount: The quantity to move in relation to the specified unit of measurement.
+            unit: The unit of measurement specified for the "amount" parameter.
+            steering: The direction and quantity to steer the Driving Base. (-100:100)
+            speed: The motor speed. (-100:100)
+        """
         pass
 
     def start(self, steering: int = 0, speed: int = None):
+        """
+        Start both motors simultaneously to move a Driving Base.
+        Steering = "0" makes the Driving Base go straight. Negative numbers make the Driving Base turn left. Positive numbers make the Driving Base turn right.
+        The program flow is not interrupted. This is most likely interrupted by sensor input and a condition.
+        If the value of steering is equal to "-100" or "100," the Driving Base will perform a rotation on itself (i.e., "tank move") at the default speed of each motor.
+        If the value of "steering" is outside of the allowed range, the value will be set to "-100" or "100," depending on whether the value is positive or negative.
+        If speed is outside of the allowed range, the value will be set to "-100" or "100," depending on whether the value is positive or negative.
+        If the speed is negative, the Driving Base will move backward instead of forward. Likewise, if the "amount" is negative, the Driving Base will move backward instead of forward. If both the speed and the "amount" are negative, the Driving Base will move forward.
+        Parameters:
+            direction: The direction and quantity to steer the Driving Base. (-100:100)
+            speed: The speed at which the Driving Base will move while performing a curve. (-100:100)
+        """
         pass
 
     def stop(self):
+        """
+        Stops both motors simultaneously, which will stop a Driving Base.
+        The motors will either actively hold their current position or coast freely depending on the option that’s been selected by set_stop_action().
+        """
         pass
 
     def move_tank(self, amount: float, unit: MotorUnit = MotorUnit.CM, left_speed: int = None, right_speed: int = None):
+        """
+        Moves the Driving Base using differential (tank) steering.
+        The speed of each motor can be controlled independently for differential (tank) drive Driving Bases.
+        When the specified unit is "cm" or "in," the "amount" of the unit parameter is equal to the horizontal distance that the Driving Base will travel before stopping. The relationship between the motor rotations and distance traveled can be adjusted by calling set_motor_rotation().
+        When the "unit" is "rotations" or "degrees," the "amount" parameter value specifies how much the motor axle will turn before stopping.
+        When the "unit" is "seconds," the "amount" parameter value specifies the duration that the motors will run before stopping.
+        If left_speed or right_speed is outside of the allowed range, the value will be set to "-100" or "100" depending on whether the value is positive or negative.
+        If one of the speeds (i.e., left_speed or right_speed) is negative, the negative-speed motor will run backward instead of forward. If the "amount" parameter value is negative, both motors will rotate backward instead of forward. If both of the speed values (i.e., left_speed and right_speed) are negative and the "amount" parameter value is negative, both motors will rotate forward.
+        The program will not continue until the specified value is reached.
+        Parameters:
+            amount: The quantity to move in relation to the specified unit of measurement.
+            unit: The unit of measurement specified for the "amount" parameter.
+            left_speed: The speed of the left motor. (-100:100)
+            right_speed: The speed of the right motor. (-100:100)
+        """
         pass
 
     def start_tank(self, left_speed: int, right_speed: int):
+        """
+        Starts moving the Driving Base using differential (tank) steering.
+        The speed of each motor can be controlled independently for differential (tank) drive Driving Bases.
+        If left_speed or right_speed is outside of the allowed range, the value will be set to "-100" or "100" depending on whether the value is positive or negative.
+        If the speed is negative, the motors will move backward instead of forward.
+        The program flow is not interrupted. This is most likely interrupted by sensor input and a condition.
+        Parameters:
+            left_speed: The speed of the left motor. (-100:100)
+            right_speed: The speed of the right motor. (-100:100)
+        """
         pass
 
     def start_at_power(self, power: int, steering: int = 0):
+        """
+        Starts moving the Driving Base without speed control.
+        The motors can also be driven without speed control. This is useful when using your own control algorithm (e.g., a proportional line-follower).
+        If the steering is outside of the allowed range, the value will be set to "-100" or "100" depending on whether the value is positive or negative.
+        If the power is outside of the allowed range, the value will be set to "-100" or "100" depending on whether the value is positive or negative.
+        If the power is negative, the Driving Base will move backward instead of forward.
+        The program flow is not interrupted. This can most likely be interrupted by sensor input and a condition.
+        Parameters:
+            power: The amount of power to send to the motors. (-100:100)
+            steering: The steering direction (-100 to 100). "0" makes the Driving Base move straight. Negative numbers make the Driving Base turn left. Positive numbers make the Driving Base turn right. (-100:100)
+        """
         pass
 
     def start_tank_at_power(self,left_power:int,right_power:int):
+        """
+        Starts moving the Driving Base using differential (tank) steering without speed control.
+        The motors can also be driven without speed control. This is useful when using your own control algorithm (e.g., a proportional line-follower).
+        If the left_power or right_power is outside of the allowed range, the value will be rounded to "-100" or "100" depending on whether the value is positive or negative.
+        If the power is a negative value, the corresponding motor will move backward instead of forward.
+        The program flow is not interrupted. This can most likely be interrupted by sensor input and a condition.
+        Parameters:
+            left_power: The power of the left motor. (-100:100)
+            right_power: The power of the right motor. (-100:100)
+        """
         pass
 
     def get_default_speed(self) -> int:
+        """
+        Retrieves the default motor speed.
+        Returns:
+            The default motor speed. (-100:100)
+        """
         pass
 
     def set_motor_rotation(self, amount: float = 17.6, unit: DistanceUnit = DistanceUnit.CM):
+        """
+        Sets the ratio of one motor rotation to the distance traveled.
+        If there are no gears used between the motors and the wheels of the Driving Base, the "amount" is the circumference of one wheel.
+        Calling this method does not affect the Driving Base if it’s already running. It will only have an effect the next time one of the move or start methods is used.
+        Parameters:
+            amount: The distance that the Driving Base moves when both motors move one rotation each.
+            unit: The unit of measurement specified for the "amount" parameter.
+        """
         pass
 
     def set_default_speed(self, speed: int = 100):
+        """
+        Sets the default motor speed.
+        If speed is outside of the allowed range, the value will be set to "-100" or "100" depending on whether the value is positive or negative.
+        Setting the speed will not have any effect until one of the move or start methods is called, even if the Driving Base is already moving.
+        Parameters:
+            speed: The default motor speed. (-100:100)
+        """
         pass
 
     def set_stop_action(self, action: StopAction = StopAction.COAST):
+        """
+        Sets the motor action that will be used when the Driving Base stops.
+        If the action is "brake," the motors will stop quickly and be allowed to turn freely.
+        If the action is "hold," the motors will actively hold their current position and cannot be turned manually.
+        If the action is set to "coast," the motors will stop slowly and can be turned freely.
+        Setting the "stop" action does not take immediate effect on the motors. The setting will be saved and used whenever stop() is called or when one of the move methods has completed without being interrupted.
+        Parameters:
+            action: The desired action of the motors when the Driving Base stops.
+        """
         pass
 
 
